@@ -20,7 +20,7 @@ def train_age_regressor ():
 def cost_function(x,y,w,b):
     n = x.shape[0]
     y_hat = np.dot(x,w) + b
-    cost = (1/2) * np.mean((np.square(y_hat-y)))
+    cost = (1/(2*n)) * np.sum((np.square(y_hat-y)))
 
     return cost
 
@@ -44,8 +44,6 @@ def stochastic_grad_descent(x,y,xv,yv,mini_batch,num_epoch,epsilon):
     n,m = np.shape(x)
     w = np.zeros(m)
     b = 0.0
-    dldw = 0.0
-    dldb = 0.0
 
     # Tracking the training and validation cost function value
     train_cost_list = []
@@ -89,9 +87,9 @@ X_train, y_train, X_val, y_val, X_test, y_test = train_age_regressor()
 # Hyperparameter Tuning using Grid Search
 
 # Assigning 2 values for each hyperparameter
-learning_rates = [0.001,0.0019]
-mini_batch_size = [16,32]
-epochs = [500,800]
+learning_rates = [0.0014,0.00197]
+mini_batch_size = [64,32]
+epochs = [500,700]
 
 # Recording the best values of both parameters and hyperparameters
 best_cost_val = float('inf')

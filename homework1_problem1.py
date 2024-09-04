@@ -1,5 +1,4 @@
 import numpy as np
-import matplotlib.pyplot as plt
 from numpy import linalg as LA
 
 def problem_1a (A, B):
@@ -28,22 +27,17 @@ def problem_1h (x, k, m, s):
     return np.random.multivariate_normal((x+m*np.ones((len(x)))).flatten(),(s*np.identity(len(x))),k).T
 
 def problem_1i (A):
-    return A[:,np.random.shuffle(A.transpose())]
+    return A[:, np.random.permutation(A.shape[1])]
 
 def problem_1j (x):
-    return np.std(x)
+    return (x - np.mean(x)) / np.std(x)
 
 def problem_1k (x, k):
-    return np.repeat(x,k,axis=0)
+    return np.repeat(x[:, np.newaxis], k, axis=1)
 
 def problem_1l (X, Y):
-    return ...
+    return np.sqrt(np.sum((X[:, :, np.newaxis] - Y[:, np.newaxis, :]) ** 2, axis=0))
 
-# A1 = np.array([[1,2],[3,2]])
-# A2 = np.array([[2,1],[2,4]])
-# A3 = np.array([[4,1],[3,7]])
-A4 = np.array([[1,2,3,4],[2,3,1,5],[1,1,4,2],[3,1,7,2]])
-#A5 = np.array([[1],[2],[3],[4]])
 
 A = np.array([[1, 3], [5, 7]])
 B = np.array([[4, 5], [6, 9]])
@@ -63,10 +57,15 @@ print("\n 1g.",problem_1g(arr,1))
 print("\n 1g.",problem_1g(arr1,2))
 
 x = np.array([1,2,3,4,5]).T
+k = 4
 m = 2
 s = 3
-k = 4
+
 print("\n 1h.",problem_1h(x,4,2,3))
-print("\n 1i.",problem_1i(A4))
-# print("\n 1j.",problem_1j(A5))
+print("\n 1i.",problem_1i(D))
+print("\n 1j.",problem_1j(D[0]))
 print("\n 1k.",problem_1k(D[0],5))
+
+X = np.array([[1, 3, 5], [2, 4, 6]])  # shape: 2x3
+Y = np.array([[7, 9, 11, 13], [8, 10, 12, 14]])  # shape: 2x4
+print("\n 1k.",problem_1l(X, Y)) # shape: 3x4
